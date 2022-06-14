@@ -1,0 +1,991 @@
+{% extends 'posts/base_final.html' %}
+{% load static %}
+{% block content %}
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.4.0/css/all.min.css" integrity="sha512-eBNnVs5xPOVglLWDGXyZnZZ2K2ixXhR/3aECgCpFnW2dGCd/yiqXZ6fcB3BubeA91kM6NX234b6Wrah8RiYAPA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+                body{
+    background-color: #f9fafb;
+    margin-top:20px;}
+
+.profile-page .profile-header {
+    box-shadow: 0 0 10px 0 rgba(183, 192, 206, 0.2);
+    border: 1px solid #f2f4f9;
+}
+
+.profile-page .profile-header .cover {
+    position: relative;
+    border-radius: .25rem .25rem 0 0;
+}
+
+
+.profile-page .profile-header .cover figure {
+    margin-bottom: 0;
+}
+
+@media (max-width: 767px) {
+    .profile-page .profile-header .cover figure {
+        height: 110px;
+        overflow: hidden;
+    }
+}
+
+@media (min-width: 2400px) {
+    .profile-page .profile-header .cover figure {
+        height: 280px;
+        overflow: hidden;
+    }
+}
+
+.profile-page .profile-header .cover figure img {
+    border-radius: .25rem .25rem 0 0;
+    width: 100%;
+}
+
+@media (max-width: 767px) {
+    .profile-page .profile-header .cover figure img {
+        -webkit-transform: scale(2);
+        transform: scale(2);
+        margin-top: 15px;
+    }
+}
+
+@media (min-width: 2400px) {
+    .profile-page .profile-header .cover figure img {
+        margin-top: -55px;
+    }
+}
+
+.profile-page .profile-header .cover .gray-shade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: linear-gradient(rgba(255, 255, 255, 0.1), #fff 99%);
+}
+
+.profile-page .profile-header .cover .cover-body {
+    position: absolute;
+    bottom: -7px;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.profile-page .profile-header .cover .cover-body .profile-pic {
+    border-radius: 50%;
+    width: 100px;
+}
+
+@media (max-width: 767px) {
+    .profile-page .profile-header .cover .cover-body .profile-pic {
+        width: 70px;
+    }
+}
+
+.profile-page .profile-header .cover .cover-body .profile-name {
+    font-size: 20px;
+    font-weight: 600;
+    margin-left: 17px;
+}
+
+.profile-page .profile-header .header-links {
+    padding: 15px;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 0 0 .25rem .25rem;
+}
+
+.profile-page .profile-header .header-links ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-page .profile-header .header-links ul li a {
+    color: #000;
+    -webkit-transition: all .2s ease;
+    transition: all .2s ease;
+}
+
+.profile-page .profile-header .header-links ul li:hover,
+.profile-page .profile-header .header-links ul li.active {
+    color: #727cf5;
+}
+
+.profile-page .profile-header .header-links ul li:hover a,
+.profile-page .profile-header .header-links ul li.active a {
+    color: #727cf5;
+}
+
+.profile-page .profile-body .left-wrapper .social-links a {
+    width: 30px;
+    height: 30px;
+}
+
+.profile-page .profile-body .right-wrapper .latest-photos > .row {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.profile-page .profile-body .right-wrapper .latest-photos > .row > div {
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.profile-page .profile-body .right-wrapper .latest-photos > .row > div figure {
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    margin-bottom: 6px;
+}
+
+.profile-page .profile-body .right-wrapper .latest-photos > .row > div figure:hover {
+    -webkit-transform: scale(1.06);
+    transform: scale(1.06);
+}
+
+.profile-page .profile-body .right-wrapper .latest-photos > .row > div figure img {
+    border-radius: .25rem;
+}
+
+.rtl .profile-page .profile-header .cover .cover-body .profile-name {
+    margin-left: 0;
+    margin-right: 17px;
+}
+.img-xs {
+    width: 37px;
+    height: 37px;
+}
+.rounded-circle {
+    border-radius: 50% !important;
+}
+img {
+    vertical-align: middle;
+    border-style: none;
+}
+
+.card-header:first-child {
+    border-radius: 0 0 0 0;
+}
+.card-header {
+    padding: 0.875rem 1.5rem;
+    margin-bottom: 0;
+    background-color: rgba(0, 0, 0, 0);
+    border-bottom: 1px solid #f2f4f9;
+}
+
+.card-footer:last-child {
+    border-radius: 0 0 0 0;
+}
+.card-footer {
+    padding: 0.875rem 1.5rem;
+    background-color: rgba(0, 0, 0, 0);
+    border-top: 1px solid #f2f4f9;
+}
+
+.grid-margin {
+    margin-bottom: 1rem;
+}
+
+.card {
+    box-shadow: 0 0 10px 0 rgba(183, 192, 206, 0.2);
+    -webkit-box-shadow: 0 0 10px 0 rgba(183, 192, 206, 0.2);
+    -moz-box-shadow: 0 0 10px 0 rgba(183, 192, 206, 0.2);
+    -ms-box-shadow: 0 0 10px 0 rgba(183, 192, 206, 0.2);
+}
+.rounded {
+    border-radius: 0.25rem !important;
+}
+.panel-footer{
+    height: 60px;
+}
+.nav-pills>li {
+    float: left;
+}
+.nav>li {
+    position: relative;
+    display: block;
+}
+
+.border-left {
+    border-left: 1px solid #dee2e6!important;
+}
+.panel {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
+    box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
+}
+.panel-footer {
+    padding: 10px 15px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ddd;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+.header-link-item{
+    margin-right: 14px;
+    padding-left: 6px;
+}
+.post-actions p{
+    margin-bottom: 0;
+    margin-right: 10px;
+}
+.post-actions svg{
+    margin-right: 5px;
+}
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #f2f4f9;
+    border-radius: 0.25rem;
+}
+
+/* temp css */
+
+body{margin-top:20px;
+background:#eee;
+}
+
+.divider {
+  height: 20px;
+  display: block;
+}
+.post-text{
+    margin-left: 8px;
+    width: 100%;
+    }
+    .edit-color{
+    float:right;
+    }
+/* ========================================================================
+ * FORM MISC
+ * ======================================================================== */
+.input-group-addon {
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+  min-width: 39px;
+}
+.input-group-addon .ckbox, .input-group-addon .rdio {
+  position: absolute;
+  top: 4px;
+  left: 10px;
+}
+
+.input-group-lg > .form-control, .input-group-lg > .input-group-addon, .input-group-lg > .input-group-btn > .btn, .input-group-sm > .form-control, .input-group-sm > .input-group-addon, .input-group-sm > .input-group-btn > .btn, .input-group-xs > .form-control, .input-group-xs > .input-group-addon, .input-group-xs > .input-group-btn > .btn {
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+}
+
+.input-sm, .form-group-sm .form-control {
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+}
+
+.form-control {
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+@media (max-width: 640px) {
+  .form-inner-all [class*="col-"]:last-child .form-control {
+    margin-top: 15px;
+  }
+}
+
+
+/* ========================================================================
+ * PROFILE
+ * ======================================================================== */
+.profile-cover {
+  width: 100%;
+}
+.profile-cover .cover {
+  position: relative;
+  border: 10px solid #FFF;
+}
+.profile-cover .cover .inner-cover {
+  overflow: hidden;
+  height: auto;
+}
+.profile-cover .cover .inner-cover img {
+  border: 1px solid transparent;
+  text-align: center;
+  width: 100%;
+}
+.profile-cover .cover .inner-cover .cover-menu-mobile {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.content-center{
+justify-content:center;
+}
+.profile-cover .cover .inner-cover .cover-menu-mobile button i {
+  font-size: 17px;
+}
+.profile-cover .cover ul.cover-menu {
+  padding-left: 150px;
+  position: absolute;
+  overflow: hidden;
+  left: 1px;
+  float: left;
+  bottom: 0px;
+  width: 100%;
+  margin: 0px;
+  background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.24);
+}
+.profile-cover .cover ul.cover-menu li {
+  display: block;
+  float: left;
+  margin-right: 0px;
+  padding: 0px 10px;
+  line-height: 40px;
+  height: 40px;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.profile-cover .cover ul.cover-menu li:hover {
+  background-color: rgba(0, 0, 0, 0.44);
+}
+.profile-cover .cover ul.cover-menu li.active {
+  background-color: rgba(0, 0, 0, 0.64);
+}
+.profile-cover .cover ul.cover-menu li a {
+  color: #FFF;
+  font-weight: bold;
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  text-decoration: none;
+}
+.profile-cover .cover ul.cover-menu li a i {
+  font-size: 18px;
+}
+.profile-cover .profile-body {
+  margin: 0px auto 10px;
+  position: relative;
+}
+.profile-cover .profile-timeline {
+  padding: 15px;
+}
+.img-post{
+    width:30px;
+    height:30px;
+}
+.img-post2{
+    width:50px;
+    height:50px;
+}
+.nav.nav-pills li a {
+    font-size: 22px;
+    color: #0ea1e3;
+    margin-right: 10px;
+}
+.btn.btn-success.pull-right{
+    float: right;
+}
+.img-xs.rounded-circle{
+    margin-right: 12px
+}
+.ml-2 p{
+    margin: 0 !important;
+
+}
+.men-profile{
+    display: flex;
+    align-items: center;
+    flex-direction: column
+
+}
+
+
+
+
+
+/* comment-section */
+
+
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+}
+
+:root {
+	--c-grey-100: #f4f6f8;
+	--c-grey-200: #e3e3e3;
+	--c-grey-300: #b2b2b2;
+	--c-grey-400: #7b7b7b;
+	--c-grey-500: #3d3d3d;
+
+	--c-blue-500: #688afd;
+}
+
+/* Some basic CSS overrides */
+
+button,
+input,
+select,
+textarea {
+	font: inherit;
+}
+
+a {
+	color: inherit;
+}
+img {
+	display: block;
+	max-width: 100%;
+}
+/* End basic CSS override */
+
+.timeline {
+    width: 100%;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    border: 1px solid #dee2e6;
+    flex-direction: column;
+    padding: 32px 20px 32px 32px;
+    border-left: 2px solid var(--c-grey-200);
+    font-size: 1.125rem;
+    background: #f7f7f7;
+}
+
+.timeline-item {
+	display: flex;
+	gap: 24px;
+    margin-top: 24px;
+ }
+ .post-second{
+ justify-content:space-between;
+ }
+ .extra-space {
+	margin-top: 48px;
+    display: flex;
+	gap: 24px;
+	}
+
+.new-comment {
+	width: 100%;
+}
+.new-comment input {
+	border: 1px solid var(--c-grey-200);
+	border-radius: 6px;
+	height: 48px;
+	padding: 0 16px;
+	width: 100%;
+}
+.new-comment::placeholder {
+ color: var(--c-grey-300);
+}
+
+.new-comment:focus {
+	border-color: var(--c-grey-300);
+	outline: 0;
+	box-shadow: 0 0 0 4px var(--c-grey-100);
+}
+
+.timeline-item-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	margin-left: -52px;
+	flex-shrink: 0;
+	overflow: hidden;
+	box-shadow: 0 0 0 6px #fff;
+}
+.timeline-item-icon svg {
+	width: 20px;
+	height: 20px;
+}
+.faded-icon {
+	background-color: var(--c-grey-100);
+	color: var(--c-grey-400);
+}
+.filled-icon {
+	background-color: var(--c-blue-500);
+	color: #fff;
+}
+.timeline-item-description {
+	display: flex;
+	padding-top: 6px;
+	gap: 8px;
+	color: var(--c-grey-400);
+}
+.timeline-item-description img {
+	flex-shrink: 0;
+}
+.timeline-item-description a {
+	color: var(--c-grey-500);
+	font-weight: 500;
+	text-decoration: none;
+}
+.timeline-item-description:hover,
+.timeline-item-description:focus {
+	outline: 0;
+	color: var(--c-blue-500);
+}
+.header-link-item svg{
+    margin-right: 7px;
+}
+
+.avatar {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	overflow: hidden;
+	aspect-ratio: 1 / 1;
+	flex-shrink: 0;
+	width: 40px;
+	height: 40px;
+}
+	.avatar.small {
+	width: 28px;
+	height: 28px;
+}
+img {
+	object-fit: cover;
+}
+.comment {
+	margin-top: 12px;
+	color: var(--c-grey-500);
+	border: 1px solid var(--c-grey-200);
+	box-shadow: 0 4px 4px 0 var(--c-grey-100);
+	border-radius: 6px;
+	padding: 16px;
+	font-size: 1rem;
+}
+.button {
+	border: 0;
+	padding: 0;
+	display: inline-flex;
+	vertical-align: middle;
+	margin-right: 4px;
+	margin-top: 12px;
+	align-items: center;
+	justify-content: center;
+	font-size: 1rem;
+	height: 32px;
+	padding: 0 8px;
+	background-color: var(--c-grey-100);
+	flex-shrink: 0;
+	cursor: pointer;
+	border-radius: 99em;
+}
+.button:hover {
+	background-color: var(--c-grey-200);
+}
+.gray-shade-img img{
+    height: 320px;
+}
+
+.square {
+    border-radius: 50%;
+	color: var(--c-grey-400);
+	width: 32px;
+	height: 32px;
+	padding: 0;
+}
+.square svg {
+	width: 24px;
+	height: 24px;
+}
+.square:hover {
+	background-color: var(--c-grey-200);
+	color: var(--c-grey-500);
+}
+
+.show-replies {
+	color: var(--c-grey-300);
+	background-color: transparent;
+	border: 0;
+	padding: 0;
+	margin-top: 16px;
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 1rem;
+	cursor: pointer;
+}
+.show-replies svg {
+	flex-shrink: 0;
+	width: 24px;
+	height: 24px;
+}
+.show-replies:hover,
+.show-replies:focus {
+	color: var(--c-grey-500);
+}
+
+.avatar-list {
+	display: flex;
+	align-items: center;
+    position: relative;
+	box-shadow: 0 0 0 2px #fff;
+	margin-right: -8px;
+}
+.new-comment input{
+    width: 100%;
+    height: 53px;
+}
+.remove-default-btn {
+	background-color: transparent;
+	border: none;
+	box-shadow: none;
+}
+.mm{
+margin-left:20px;
+}
+    </style>
+</head>
+<body>
+<div class="col-md-12 col-sm-12 col-xl-12 middle-wrapper" >
+            <div class="row">
+                <div class="col-md-12 grid-margin" >
+                    <div class="card rounded">
+                        <div class="card-header">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <img class="img-xs rounded-circle" src="{{post.author.user_profile.profile_image.url}}" alt="">
+                                    <div class="ml-2">
+                                        <p>{{post.author.username}}</p>
+                                        <p class="tx-11 text-muted">{{post.created_at}}</p>
+                                    </div>
+                                </div>
+                                 {% if request.user == post.author %}
+                                <div class="dropdown">
+                                    <button class="btn p-0" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal icon-lg pb-3px">
+                                            <circle cx="12" cy="12" r="1"></circle>
+                                            <circle cx="19" cy="12" r="1"></circle>
+                                            <circle cx="5" cy="12" r="1"></circle>
+                                        </svg>
+                                    </button>
+
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                        <a class="dropdown-item d-flex align-items-center confirmation" onclick="" href="{% url 'post-delete' post.pk %}">
+                                            <i class="fa fa-trash"></i> <span class="">Delete</span></a>
+
+                                        <a class="dropdown-item d-flex align-items-center" href="{% url 'post-edit' post.pk %}">
+                                          <i class="fas fa-edit"></i>Edit</span></a>
+
+                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-corner-right-up icon-sm mr-2">
+                                                <polyline points="10 9 15 4 20 9"></polyline>
+                                                <path d="M4 20h7a4 4 0 0 0 4-4V4"></path>
+                                            </svg> <span class="">Go to post</span></a>
+                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share-2 icon-sm mr-2">
+                                                <circle cx="18" cy="5" r="3"></circle>
+                                                <circle cx="6" cy="12" r="3"></circle>
+                                                <circle cx="18" cy="19" r="3"></circle>
+                                                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                                                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                                            </svg> <span class="">Share</span></a>
+                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy icon-sm mr-2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                            </svg> <span class="">Copy link</span></a>
+                                    </div>
+
+                                </div>
+                                 {% endif %}
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <p class="mb-3 tx-14">{{post.description}}</p>
+                            <img class="img-fluid" src="{{post.image.url}}" alt="">
+                        </div>
+                        <div class="card-footer">
+                            <div class="d-flex post-actions align-items-center post-second text-muted mr-4">
+                                 <form method="POST" action="{% url 'like' post.pk %}" class="mm d-flex" >
+                                    {% csrf_token %}
+                                    <input type="hidden" name="next" value="{{ request.path }}">
+                                    <button class="remove-default-btn" type="button">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart icon-md">
+                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                    </svg>{{ post.likes.all.count }}
+                                    </button>
+                                     <p class="d-none d-md-block ml-2">Like</p>
+                                </form>
+<!--                                <a href="javascript:;" class="d-flex align-items-center text-muted mr-4">-->
+<!--                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart icon-md">-->
+<!--                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>-->
+<!--                                    </svg>-->
+<!--                                    <p class="d-none d-md-block ml-2">Like</p>-->
+<!--                                </a>-->
+                                <a href="javascript:;" class="d-flex align-items-center text-muted mr-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square icon-md">
+                                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                    </svg>
+                                    <p class="d-none d-md-block ml-2">Comment</p>
+                                </a>
+                                <a href="javascript:;" class="d-flex align-items-center text-muted">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share icon-md">
+                                        <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                                        <polyline points="16 6 12 2 8 6"></polyline>
+                                        <line x1="12" y1="2" x2="12" y2="15"></line>
+                                    </svg>
+                                    <p class="d-none d-md-block ml-2">Share</p>
+                                </a>
+                            </div>
+                             <div class="row justify-content-center mt-3 mb-5">
+        <div class="col-md-12 col-sm-12 col-xl-6">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.comment  }}
+                <div class="d-grid gap-2">
+                    <button class="btn btn-success mt-3 " style="width:400px;"  id="myButton"><i class="fa fa-paper-plane-o" aria-hidden="true"></i>Comment</button>
+                </div>
+            </form>
+        </div>
+                                  {% for comment in comments %}
+    {% if comment.is_parent %}
+    <div class="row justify-content-center mt-3 mb-5">
+        <div class="col-md-8 col-sm-12 border-bottom">
+            <p>
+                <div class="d-flex">
+                    <a href="{% url 'profile' comment.author.user_profile.pk %}">
+                        <img class="round-circle post-img" height="30" width="30" src="{{ comment.author.user_profile.profile_image.url }}" />
+                    </a>
+                    <p class="post-text">
+                        <a class="text-primary post-link" href="{% url 'profile' comment.author.user_profile.pk %}">@{{ comment.author.username }}</a> {{ comment.created_at }}
+                    </p>
+                </div>
+                {% if request.user == comment.author %}
+            <div class="dropdown" style="float:right">
+                                        <button class="btn p-0" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal icon-lg pb-3px">
+                                                <circle cx="12" cy="12" r="1"></circle>
+                                                <circle cx="19" cy="12" r="1"></circle>
+                                                <circle cx="5" cy="12" r="1"></circle>
+                                            </svg>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                            <a class="dropdown-item d-flex align-items-center "  href="{% url 'comment-delete' post.pk  comment.pk %}">
+                                                <i class="fa fa-trash"></i> <span class="">Delete</span></a>
+                                              <a class="dropdown-item d-flex align-items-center "  href="{% url 'comment-edit' post.pk comment.pk %}">
+                                               <i class="fas fa-edit"></i><span class="">Edit</span></a>
+                                    </div>
+
+
+
+            </div>
+<!--                    <a href="{% url 'comment-delete' post.pk comment.pk %}" class="edit-color"><i class="fas fa-trash"></i></a>-->
+<!--            <button type="button" class="btn btn-danger btn-sm"  style="margin-left:160px" data-toggle="modal" data-target="#{{ comment.pk }}2">-->
+<!--                             <a style="text-decoration:none; color:white"-->
+<!--                            ><i class="fa fa-trash"></i> Delete</a>-->
+<!--                            </button>-->
+
+<!--                            &lt;!&ndash; Modal &ndash;&gt;-->
+<!--                            <div class="modal fade" id="{{ comment.pk }}2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">-->
+<!--                            <div class="modal-dialog modal-dialog-centered" role="document">-->
+<!--                            <div class="modal-content">-->
+<!--                            <div class="modal-header">-->
+<!--                            <h5 class="modal-title" id="exampleModalLongTitle">Confirm Delete</h5>-->
+<!--                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                              <span aria-hidden="true">&times;</span>-->
+<!--                            </button>-->
+<!--                            </div>-->
+<!--                            <div class="modal-body">-->
+<!--                                <p>Do you want to delete?</p>-->
+<!--                            </div>-->
+<!--                            <div class="modal-footer">-->
+<!--                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>-->
+<!--                            <button  type="button" class="btn btn-danger"><a style="text-decoration:none; color:white"-->
+<!--                           href="{% url 'comment-delete' post.pk comment.pk %}"><i class="fa fa-trash"></i> Delete</a></button>-->
+<!--                            </div>-->
+<!--                            </div>-->
+<!--                            </div>-->
+<!--                            </div>-->
+                {% endif %}
+            </p>
+            <p class="text-center">{{ comment.comment }}</p>
+
+            <div class="d-flex flex-row content-center">
+                <form method="POST" action="{% url 'comment-like' post.pk comment.pk %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.path }}">
+                    <button class="remove-default-btn" type="submit">
+                        <i class="far fa-thumbs-up"> <span>{{ comment.likes.all.count }}</span></i>
+                    </button>
+                </form>
+
+
+                <form method="POST" action="{% url 'comment-dislike' post.pk comment.pk %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.path }}">
+                    <button class="remove-default-btn" type="submit">
+                        <i class="far fa-thumbs-down"> <span>{{ comment.dislikes.all.count }}</span></i>
+                    </button>
+                </form>
+                <div>
+                    <button class="remove-default-btn"><i class="far fa-comment-dots" onclick="commentReplyToggle('{{ comment.pk }}')"></i></button>
+                </div>
+        </div>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-3 mb-5 d-none" id="{{ comment.pk }}">
+        <div class="col-md-12 col-sm-12 col-xl-6">
+            <form method="POST" action="{% url 'comment-reply' post.pk comment.pk %}">
+                {% csrf_token %}
+                {{ form.comment }}
+                <div class="d-grid gap-2">
+                    <button class="btn btn-success mt-3" style="width:400px;"  id="Buttons">Comment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% for child_comment in comment.children %}
+    <div class="row justify-content-center mt-3 mb-5 child-comment">
+        <div class="col-md-5 col-sm-12 border-bottom">
+            <p>
+                <div class="d-flex">
+                    <a href="{% url 'profile' child_comment.author.user_profile.pk %}">
+                        <img class="round-circle post-img" height="30" width="30" src="{{ child_comment.author.user_profile.profile_image.url }}" />
+                    </a>
+                    <p class="post-text">
+                        <a class="text-primary post-link " href="{% url 'profile' child_comment.author.user_profile.pk %}">@{{ child_comment.author.username }}</a> {{ child_comment.created_at }}
+                    </p>
+                </div>
+                {% if request.user == child_comment.author %}
+
+
+               <div class="dropdown" style="float:right">
+                                        <button class="btn p-0" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal icon-lg pb-3px">
+                                                <circle cx="12" cy="12" r="1"></circle>
+                                                <circle cx="19" cy="12" r="1"></circle>
+                                                <circle cx="5" cy="12" r="1"></circle>
+                                            </svg>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                            <a class="dropdown-item d-flex align-items-center " href="{% url 'comment-delete' post.pk  child_comment.pk %}">
+                                                <i class="fa fa-trash"></i> <span class="">Delete</span></a>
+                                              <a class="dropdown-item d-flex align-items-center "  href="{% url 'comment-edit' post.pk child_comment.pk %}">
+                                               <i class="fas fa-edit"></i><span class="">Edit</span></a>
+                                    </div>
+
+
+
+            </div>
+<!--                    <a href="{% url 'comment-delete' post.pk child_comment.pk %}" class="edit-color"><i class="fas fa-trash"></i></a>-->
+<!--            <button type="button" class="btn btn-danger btn-sm"  style="margin-left:120px" data-toggle="modal" data-target="#{{ child_comment.pk }}2">-->
+<!--                             <a style="text-decoration:none; color:white"-->
+<!--                            ><i class="fa fa-trash"></i> Delete</a>-->
+<!--                            </button>-->
+
+<!--                            &lt;!&ndash; Modal &ndash;&gt;-->
+<!--                            <div class="modal fade" id="{{ child_comment.pk }}2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">-->
+<!--                            <div class="modal-dialog modal-dialog-centered" role="document">-->
+<!--                            <div class="modal-content">-->
+<!--                            <div class="modal-header">-->
+<!--                            <h5 class="modal-title" id="exampleModalLongTitle">Confirm Delete</h5>-->
+<!--                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                              <span aria-hidden="true">&times;</span>-->
+<!--                            </button>-->
+<!--                            </div>-->
+<!--                            <div class="modal-body">-->
+<!--                                <p>Do you want to delete?</p>-->
+<!--                            </div>-->
+<!--                            <div class="modal-footer">-->
+<!--                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>-->
+<!--                            <button  type="button" class="btn btn-danger"><a style="text-decoration:none; color:white"-->
+<!--                           href="{% url 'comment-delete' post.pk child_comment.pk  %}"><i class="fa fa-trash"></i> Delete</a></button>-->
+<!--                            </div>-->
+<!--                            </div>-->
+<!--                            </div>-->
+<!--                            </div>-->
+                {% endif %}
+            </p>
+            <p class="text-center">{{ child_comment.comment }}</p>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endfor %}
+</div>
+    </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- middle wrapper end -->
+<script>
+document.getElementById("pw")
+    .addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById("myButton").click();
+    }
+});
+
+
+   document.getElementById("pw")
+    .addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById("Buttons").click();
+    }
+});
+ $('.confirmation').on('click', function () {
+        return confirm('Are you sure you want to delete it ?');
+    });
+
+</script>
+
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+{% endblock %}
+
+
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+<div class="dropdown">
+	<span class="badge bg-primary notification-badge " id="notification-badge" style="position: absolute;top: -33px;left: 11px;border-radius: 50%;" onclick="showNotifications()">{{ notification.count }}</span>
+	<div class="dropdown-content  d-none" style="position: absolute;white-space: nowrap;top: 43px;left: -123px;background: white;padding: 0 21px;" id="noti" >
+		{% for notification in notification %}
+			{% if notification.post %}
+				{% if notification.notification_type == 1 %}
+				<div class="dropdown-item-parent">
+					<a href="{% url 'post-notification' notification.pk notification.post.pk %}" >@{{ notification.from_user.username }} </a>
+					<span class="dropdown-item-close" onclick="removeNotification(`{% url 'notification-delete' notification.pk %}`, `{{ request.path }}`)"></span>
+
+					<a href="{% url 'post-detail' notification.post.pk %}">liked your post</a>
+
+
+				</div>
+				{% elif notification.notification_type == 2 %}
+				<div class="dropdown-item-parent">
+					<a href="{% url 'post-notification' notification.pk notification.post.pk %}">@{{ notification.from_user.username }} </a>
+					<span class="dropdown-item-close" onclick="removeNotification(`{% url 'notification-delete' notification.pk %}`, `{{ request.path }}`)"></span>
+					<a href="{% url 'post-detail' notification.post.pk %}">Commented on your post</a>
+				</div>
+				{% endif %}
+			{% elif notification.comment %}
+				{% if notification.notification_type == 1 %}
+				<div class="dropdown-item-parent">
+					<a href="{% url 'post-notification' notification.pk notification.comment.post.pk %}">@{{ notification.from_user.username }} liked your comment</a>
+					<span class="dropdown-item-close" onclick="removeNotification(`{% url 'notification-delete' notification.pk %}`, `{{ request.path }}`)">&times;</span>
+				</div>
+				{% elif notification.notification_type == 2 %}
+				<div class="dropdown-item-parent">
+					<a href="{% url 'post-notification' notification.pk notification.comment.post.pk %}">@{{ notification.from_user.username }} replied to your comment</a>
+					<span class="dropdown-item-close" onclick="removeNotification(`{% url 'notification-delete' notification.pk %}`, `{{ request.path }}`)">&times;</span>
+				</div>
+				{% endif %}
+			{% else %}
+
+			{% endif %}
+			{% endfor %}
+		</div>
+	</div>
+
+<script>
+        const notiSocket = new WebSocket(
+        'ws://'
+        + window.location.host
+        + '/ws/notification/'
+    );
+
+    notiSocket.onmessage = (e) => {
+        // Get and decode the message
+        const received = JSON.parse(e.data);
+        console.log(received)
+        sata_data = `<h6>${received['from_user']}  - ${received['description']}`;
+        document.getElementById('noti').innerHTML = sata_data
+        let notificationDiv  = document.getElementById('notification-badge');
+		let notificationCount = notificationDiv.innerText;
+		const count  = Number(notificationCount) + 1;
+		notificationDiv.innerText = count.toString();
+
+
+    }
+
+
+function newnotification() {
+	notification = $(".message-input").val();
+	if($.trim(notification) === '') {
+		return false;
+	}
+    chatSocket.send(
+        JSON.stringify(
+            {
+                    notification: notification
+            }
+        )
+    );
+
+	$('.message-input').val(null);
+	$('.preview').html('<span>You: </span>' + notification);
+
+}
+
+$('.submit').click(function() {
+  newnotification();
+});
+
+    </script>

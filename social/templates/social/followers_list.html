@@ -1,0 +1,41 @@
+{% extends 'posts/base_final.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-3 col-sm-6">
+            <a href="{% url 'post-list' profile.pk %}" class="btn btn-light">Back to Profile</a>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-3">
+    	<div class="col-md-5 col-sm-12">
+    		{% if profile.username %}
+    		<h3>Friends for {{ profile.username }}</h3>
+            <div class="col-md-5 col-sm-12 position-relative my-3">
+                <img class="rounded-circle post-img" height="60" width="60" src="{{ profile.user_profile.profile_image.url }}" /></a>
+
+            </div>
+            {{profile.username}}
+
+
+    		{% else %}
+    		<h3>Friends for @{{ profile.username }}</h3>
+            {{profile.username}}
+    		{% endif %}
+    	</div>
+    </div>
+
+    {% for follower in followers %}
+    <div class="row justify-content-center">
+    	<div class="col-md-5 col-sm-12 position-relative my-3">
+    		<a href="{% url 'profile' follower.user_profile.pk %}" class="post-link"><img class="rounded-circle post-img" height="60" width="60" src="{{ follower.user_profile.profile_image.url }}" /></a>
+
+
+    		<a href="{% url 'profile' follower.user_profile.pk %}" class="post-link"><h5 class="mt-3">@{{ follower.username }}</h5></a>
+
+    	</div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

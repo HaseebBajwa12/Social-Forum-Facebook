@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        const chatSocket = new WebSocket(
+        'ws://'
+        + window.location.host
+        + '/ws/notification/'
+    );
+
+    chatSocket.onmessage = (e) => {
+        // Get and decode the message
+        const received = JSON.parse(e.data);
+        console.log(received)
+        sata_data = `<h1>${received['form_user']} -   ${received['url']} - ${received['description']} - ${received['to_user']} - ${received['notification_type']}`;
+        document.getElementById('noti').innerHTML = sata_data
+    }
+    </script>
+</head>
+<body>
+ <div id="noti">
+
+ </div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+{% extends 'posts/base_final.html' %}
+
+
+{% block content %}
+<!--<div class="container">-->
+<!--    <div class="row mt-5">-->
+<!--        <div class="col-md-5 col-sm-6">-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div class="row justify-content-center mt-3">-->
+<!--        <div class="col-md-5 col-sm-12 border-bottom">-->
+<!--            <h5 class="text-center text-success"><b>Update Your Post!</b></h5>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div class="row justify-content-center mt-3 mb-5">-->
+<!--        <div class="col-md-5 col-sm-12 border-bottom">-->
+<!--            <form method="POST" enctype="multipart/form-data">-->
+<!--                {% csrf_token %}-->
+<!--                {{ form  }}-->
+<!--                <div class="d-grid gap-2">-->
+<!--                    <button class="btn btn-success mt-3" style="margin-left:50px">Edit!</button>-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<div class="col-xl-12">
+
+          <div class="card">
+            <div class="card-body pt-3">
+              <!-- Bordered Tabs -->
+              <ul class="nav nav-tabs nav-tabs-bordered">
+                 <li class="nav-item text-center">
+                  <button class="nav-link active text-center" data-bs-toggle="tab" data-bs-target="#post-edit">Edit Post</button>
+                </li>
+
+              </ul>
+
+
+                <div class="tab-pane fade show active profile-edit pt-3" id="profile-edit">
+
+                  <!-- Profile Edit Form -->
+                  <form method="post"  enctype="multipart/form-data">
+                      {% csrf_token %}
+                    <div class="row mb-3">
+                      <label for="description" class="col-md-4 col-lg-3 col-form-label">{{form.description.label_tag}}</label>
+                      <div class="col-md-8 col-lg-9">
+                        {{form.description}}
+                        <div class="pt-2">
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">{{form.image.label_tag}}</label>
+                      <div class="col-md-8 col-lg-9">
+                          {{form.image}}
+                      </div>
+                    </div>
+
+                    <div class="text-center">
+                       <input class="btn btn-primary text-center" type="submit" value="Save Changes"  >
+                    </div>
+                  </form><!-- End Profile Edit Form -->
+
+                </div>
+
+
+              </div><!-- End Bordered Tabs -->
+
+            </div>
+          </div>
+
+        </div>
+{% endblock content %}
